@@ -14,7 +14,7 @@ module.exports = function(homebridge) {
   
   // For platform plugin to be considered as dynamic platform plugin,
   // registerPlatform(pluginName, platformName, constructor, dynamic), dynamic must be true
-  homebridge.registerPlatform("homebridge-kegbot", "KegbotPlatform", KegbotPlatform, true);
+  homebridge.registerPlatform("homebridge-kegbot", "Kegbot", KegbotPlatform, true);
 }
 
 // Platform constructor
@@ -178,7 +178,7 @@ Kegbot.prototype.addAccessory = function(accessoryName) {
     
     accessory.log = this.log;
     self.accessories[name] = accessory;
-    self.api.registerPlatformAccessories("homebridge-kegbot", "KegbotPlatform", [accessory]);
+    self.api.registerPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
   }
   else {
     self.log("Skipping %s", accessoryName);
