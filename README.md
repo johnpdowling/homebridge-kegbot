@@ -27,8 +27,8 @@ Homebridge plugin for [Kegbot Server](https://github.com/Kegbot/kegbot-server). 
         "platform": "Kegbot",
         "name": "Kegberry Server",
         "aliases": {
-          "": "Air Sensor",
-          "": "Liquid Sensor"
+          "thermo-d200000123456f78": "Air Sensor",
+          "thermo-e300000987654a32": "Liquid Sensor"
          }
        }
     ],
