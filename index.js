@@ -1,4 +1,6 @@
 var http = require('http');
+var request = require("request");
+
 var Accessory, Service, Characteristic, UUIDGen;
 
 module.exports = function(homebridge) {
