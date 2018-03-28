@@ -177,7 +177,7 @@ KegbotPlatform.prototype.addAccessory = function(accessoryName) {
     });
     
     accessory.log = this.log;
-    this.accessories[name] = accessory;
+    this.accessories[accessoryName] = accessory;
     this.api.registerPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
   }
   else {
