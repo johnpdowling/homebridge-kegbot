@@ -86,13 +86,13 @@ KegbotPlatform.prototype.configurationRequestHandler = function(context, request
   this.log("configurationRequestHandler");
 }
 
-Kegbot.prototype.didFinishLaunching = function() {
+KegbotPlatform.prototype.didFinishLaunching = function() {
   var self = this;
   
   setInterval(this.devicePolling.bind(this), this.refresh * 1000);
 }
 
-Kegbot.prototype.devicePolling = function() {
+KegbotPlatform.prototype.devicePolling = function() {
   var self = this;
   this.log("Reading Thermosensors");
 
@@ -137,7 +137,7 @@ Kegbot.prototype.devicePolling = function() {
   }
 }
 
-Kegbot.prototype.addAccessory = function(accessoryName) {
+KegbotPlatform.prototype.addAccessory = function(accessoryName) {
   this.log("Add Accessory");
   var platform = this;
   var uuid;
