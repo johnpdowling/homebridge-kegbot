@@ -177,11 +177,11 @@ KegbotPlatform.prototype.addAccessory = function(accessoryName) {
     });
     
     accessory.log = this.log;
-    self.accessories[name] = accessory;
-    self.api.registerPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
+    this.accessories[name] = accessory;
+    this.api.registerPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
   }
   else {
-    self.log("Skipping %s", accessoryName);
+    this.log("Skipping %s", accessoryName);
     //accessory = this.accessories[name];
 
     // Fix for devices moving on the network
