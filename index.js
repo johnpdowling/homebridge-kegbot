@@ -77,7 +77,7 @@ KegbotPlatform.prototype.configureAccessory = function(accessory) {
   }
 
   var name = accessory.context.name;
-  self.accessories[name] = accessory;
+  this.accessories[name] = accessory;
 }
 
 // Handler will be invoked when user try to config your plugin.
