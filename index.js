@@ -30,7 +30,7 @@ function KegbotPlatform(log, config, api) {
   this.accessories = [];
 
   this.refresh = config['refresh'] || 60; // Update every minute
-  this.url = config['url'] || "127.0.0.1";
+  this.url = config['url'] || "http://localhost";
   
   if (typeof(config.aliases) !== "undefined" && config.aliases !== null) {
     this.aliases = config.aliases;
