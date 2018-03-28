@@ -152,7 +152,7 @@ KegbotPlatform.prototype.addAccessory = function(accessoryName) {
     }
     var accessory = new Accessory(accessoryName, uuid, 10);
 
-    self.log("Adding Thermo Device:", accessoryName, displayName);
+    this.log("Adding Thermo Device:", accessoryName, displayName);
     accessory.reachable = true;
     accessory.context.model = "Kegbot Thermo";
     accessory.context.name = accessoryName;
