@@ -36,9 +36,7 @@ function KegbotPlatform(log, config, api) {
   
   if (api) {
       this.api = api;
-      this.api.on('didFinishLaunching', function() {
-        platform.log("DidFinishLaunching");
-      }.bind(this));
+      this.api.on('didFinishLaunching', this.didFinishLaunching.bind(this));
   }
 }
 
