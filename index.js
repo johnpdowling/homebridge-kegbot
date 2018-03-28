@@ -121,20 +121,7 @@ KegbotPlatform.prototype.devicePolling = function() {
           
       }
     }
-  }.bind(self));  
-  for (var id in this.accessories) {
-    var device = this.accessories[id];
-    if (device.reachable) {
-      if (device.getService(Service.TemperatureSensor)) {
-        this.getDHTTemperature(device, function(err, temp) {
-          if (err) {
-            temp = err;
-          }
-          this.getService(Service.TemperatureSensor).getCharacteristic(Characteristic.CurrentTemperature).updateValue(temp);
-        }.bind(device));
-      }
-    }
-  }
+  }.bind(self));
 }
 
 KegbotPlatform.prototype.addAccessory = function(accessoryName) {
