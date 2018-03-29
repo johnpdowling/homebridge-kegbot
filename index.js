@@ -75,7 +75,20 @@ KegbotPlatform.prototype.configureAccessory = function(accessory) {
 
     
   }
+  
   if (accessory.getService(Service.Valve)) {
+
+    accessory.log = this.log;
+////    accessory.loggingService = new FakeGatoHistoryService("weather", accessory,4032,this.refresh * 10/60);
+//    accessory.loggingService = new FakeGatoHistoryService("weather", accessory,{
+//      storage: this.storage,
+//      minutes: this.refresh * 10/60
+//    });
+
+    
+  }
+  
+  if (accessory.getService(Service.Faucet)) {
     this.api.unregisterPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
     return;
   }
