@@ -142,12 +142,12 @@ KegbotPlatform.prototype.devicePolling = function() {
         {
           if(tap.meter_name in this.accessories)
           {
-            //this.accessories[tap.meter_name].getService(Service.Faucet).
-            //  getCharacteristic(Characteristic.Active).updateValue(1);
+            this.accessories[tap.meter_name].getService(Service.TemperatureSensor).
+              getCharacteristic(Characteristic.WaterLevel).updateValue(Math.floor(Math.random() * 100) + 1);
           }
           else
           {
-            //this.addTapAccessory(tap);
+            this.addTapAccessory(tap);
           }
         });
           
@@ -177,10 +177,14 @@ KegbotPlatform.prototype.addTapAccessory = function(tap) {
     accessory.context.name = accessoryName;
     accessory.context.displayName = displayName;
 
-    accessory.addService(Service.Valve, displayName);
-    accessory.getService(Service.Valve)
-      .setCharacteristic(Characteristic.ValveType, Characteristic.ValveType.GENERIC_VALVE)
-      .setCharacteristic(Characteristic.Active, 0);
+    accessory.addService(Service.TemperatureSensor);
+    
+    accessory
+        .getService(Service.TemperatureSensor)
+        .addCharacteristic(Characteristic.WaterLevel);
+      accessory
+        .getService(Service.TemperatureSensor)
+        .addCharacteristic(Characteristic.LeakDetected);
     
     accessory.getService(Service.AccessoryInformation)
       .setCharacteristic(Characteristic.Manufacturer, "Kegbot")
