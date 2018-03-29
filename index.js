@@ -65,21 +65,13 @@ KegbotPlatform.prototype.configureAccessory = function(accessory) {
   //});
 
   if (accessory.getService(Service.TemperatureSensor)) {
-
     accessory.log = this.log;
-////    accessory.loggingService = new FakeGatoHistoryService("weather", accessory,4032,this.refresh * 10/60);
-//    accessory.loggingService = new FakeGatoHistoryService("weather", accessory,{
-//      storage: this.storage,
-//      minutes: this.refresh * 10/60
-//    });
+  }
 
-    
+  if (accessory.getService(Service.HumiditySensor)) {
+    accessory.log = this.log;
   }
-  
-  if (accessory.getService(Service.TemperatureSensor).getCharacteristic(Characteristic.WaterLevel)){
-    this.api.unregisterPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
-    return;
-  }
+
   
   var name = accessory.context.name;
   this.accessories[name] = accessory;
