@@ -67,8 +67,8 @@ KegbotPlatform.prototype.configureAccessory = function(accessory) {
   if (accessory.getService(Service.TemperatureSensor)) {
     accessory.log = this.log;
     
-    this.api.registerPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
-    return;
+    //this.api.registerPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
+    //return;
   }
 
   if (accessory.getService(Service.HumiditySensor)) {
