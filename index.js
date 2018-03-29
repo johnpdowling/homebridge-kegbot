@@ -154,8 +154,8 @@ KegbotPlatform.prototype.devicePolling = function() {
         {
           if(tap.meter_name in this.accessories)
           {
-            this.accessories[tap.meter_name].getService(Service.Faucet).
-              getCharacteristic(Characteristic.Active).updateValue(1);
+            //this.accessories[tap.meter_name].getService(Service.Faucet).
+            //  getCharacteristic(Characteristic.Active).updateValue(1);
           }
           else
           {
@@ -189,7 +189,10 @@ KegbotPlatform.prototype.addTapAccessory = function(tap) {
     accessory.context.name = accessoryName;
     accessory.context.displayName = displayName;
 
-    accessory.addService(Service.Faucet, displayName);
+    accessory.addService(Service.Valve, displayName);
+    accessory.getService(Service.Valve)
+      .setCharacteristic(Characteristic.ValveType, Characteristic.ValveType.GENERIC_VALVE)
+      .setCharacteristic(Characteristic.Active, 0);
     
     accessory.getService(Service.AccessoryInformation)
       .setCharacteristic(Characteristic.Manufacturer, "Kegbot")
