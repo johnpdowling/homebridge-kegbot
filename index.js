@@ -172,9 +172,7 @@ KegbotPlatform.prototype.addTapAccessory = function(tap) {
     accessory.context.name = accessoryName;
     accessory.context.displayName = displayName;
 
-    accessory.addService(Service.Valve, displayName);
-    accessory.getService(Service.Valve)
-      .setCharacteristic(Characteristic.ValveType, Characteristic.ValveType.WATER_FAUCET);
+    accessory.addService(Service.Faucet, displayName);
     
     accessory.getService(Service.AccessoryInformation)
       .setCharacteristic(Characteristic.Manufacturer, "Kegbot")
