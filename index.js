@@ -115,7 +115,33 @@ KegbotPlatform.prototype.devicePolling = function() {
           }
           else
           {
-            this.addAccessory(thermo.sensor_name);
+            this.addThermoAccessory(thermo);
+          }
+        });
+          
+      }
+    }
+  }.bind(self));
+  httpRequest(this.url + "/api/taps/", "", "GET", function(err, response, responseBody) {
+    if (err) {
+      this.log('HTTP get failed:', err.message);
+    } else {
+      var response = JSON.parse(responseBody);
+
+      if (response.meta.result != "ok") {
+        self.log("Error status %s %s", response.error.code, response.error.message);
+      } else {
+        
+        response.objects.forEach((tap, index) => 
+        {
+          if(tap.meter_name in this.accessories)
+          {
+            //this.accessories[thermo.sensor_name].getService(Service.TemperatureSensor).
+            //  getCharacteristic(Characteristic.CurrentTemperature).updateValue(thermo.last_log.temperature_c);
+          }
+          else
+          {
+            this.addTapAccessory(tap);
           }
         });
           
@@ -124,10 +150,66 @@ KegbotPlatform.prototype.devicePolling = function() {
   }.bind(self));
 }
 
-KegbotPlatform.prototype.addAccessory = function(accessoryName) {
-  this.log("Add Accessory");
+KegbotPlatform.prototype.addTapAccessory = function(tap) {
+  this.log("Add Tap Accessory");
+  var uuid;
+  var accessoryName = thermo.meter_name;
+
+  uuid = UUIDGen.generate(accessoryName);
+
+  if(!this.accessories[accessoryName])
+  {
+    var displayName = tap.name;
+    if (typeof(displayName) == "undefined") {
+      displayName = accessoryName;
+    }
+    var accessory = new Accessory(accessoryName, uuid, 10);
+    
+    this.log("Adding Tap Device:", accessoryName, displayName);
+    accessory.reachable = true;
+    accessory.context.model = "Kegbot Tap";
+    accessory.context.name = accessoryName;
+    accessory.context.displayName = displayName;
+
+    accessory.addService(Service.Valve, displayName);
+    accessory.getService(Service.Valve)
+      .setCharacteristic(Characteristic.ValveType, Characteristic.ValveType.WATER_FAUCET);
+    
+    accessory.getService(Service.AccessoryInformation)
+      .setCharacteristic(Characteristic.Manufacturer, "Kegbot")
+      .setCharacteristic(Characteristic.Model, "Kegbot Tap")
+      .setCharacteristic(Characteristic.SerialNumber, "kb." + accessoryName)
+      .setCharacteristic(Characteristic.FirmwareRevision, require('./package.json').version);
+    
+    accessory.on('identify', function(paired, callback) {
+      platform.log(accessory.displayName, "Identify!!!");
+      callback();
+    });
+    
+    accessory.log = this.log;
+    this.accessories[accessoryName] = accessory;
+    this.api.registerPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
+  }
+  else {
+    this.log("Skipping %s", accessoryName);
+    //accessory = this.accessories[name];
+
+    // Fix for devices moving on the network
+    //if (accessory.context.url != url) {
+    //  debug("URL Changed", name);
+    //  accessory.context.url = url;
+    //} else {
+    //  debug("URL Same", name);
+    //}
+    ////        accessory.updateReachability(true);
+  }
+}
+
+KegbotPlatform.prototype.addThermoAccessory = function(thermo) {
+  this.log("Add Thermo Accessory");
   var platform = this;
   var uuid;
+  var accessoryName = thermo.sensor_name;
 
   uuid = UUIDGen.generate(accessoryName);
 
