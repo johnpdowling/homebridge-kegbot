@@ -134,7 +134,7 @@ KegbotPlatform.prototype.devicePolling = function() {
         {
           if(tap.meter_name in this.accessories)
           {
-            this.accessories[tap.meter_name].getService(Service.HumiditySensor).
+            this.accessories[tap.meter_name].getService(Service.AccessoryInformation).
               getCharacteristic(Characteristic.Name).updateValue(tap.name);
             var level = Math.floor(Math.random() * 100) + 1;
             this.accessories[tap.meter_name].getService(Service.HumiditySensor).
