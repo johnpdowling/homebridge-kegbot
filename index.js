@@ -70,6 +70,10 @@ KegbotPlatform.prototype.configureAccessory = function(accessory) {
 
   if (accessory.getService(Service.HumiditySensor)) {
     accessory.log = this.log;
+    
+    this.log(accessory.displayName, "Bye bye Accessory");
+    this.api.unregisterPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
+    return;
   }
 
   
@@ -134,7 +138,6 @@ KegbotPlatform.prototype.devicePolling = function() {
         {
           if(tap.meter_name in this.accessories)
           {
-            this.accessories[tap.meter_name].context.displayName = tap.name;
             var level = Math.floor(Math.random() * 100) + 1;
             this.accessories[tap.meter_name].getService(Service.HumiditySensor).
               getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(level);
@@ -144,7 +147,7 @@ KegbotPlatform.prototype.devicePolling = function() {
           }
           else
           {
-            this.addTapAccessory(tap);
+            //this.addTapAccessory(tap);
           }
         });
           
