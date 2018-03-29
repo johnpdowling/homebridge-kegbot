@@ -75,7 +75,11 @@ KegbotPlatform.prototype.configureAccessory = function(accessory) {
 
     
   }
-
+  if (accessory.getService(Service.Valve)) {
+    this.api.unregisterPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
+    return;
+  }
+  
   var name = accessory.context.name;
   this.accessories[name] = accessory;
 }
