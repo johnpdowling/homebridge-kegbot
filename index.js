@@ -122,6 +122,7 @@ KegbotPlatform.prototype.devicePolling = function() {
       }
     }
   }.bind(self));
+  this.log("Reading Taps");
   httpRequest(this.url + "/api/taps/", "", "GET", function(err, response, responseBody) {
     if (err) {
       this.log('HTTP get failed:', err.message);
@@ -153,7 +154,7 @@ KegbotPlatform.prototype.devicePolling = function() {
 KegbotPlatform.prototype.addTapAccessory = function(tap) {
   this.log("Add Tap Accessory");
   var uuid;
-  var accessoryName = thermo.meter_name;
+  var accessoryName = tap.meter_name;
 
   uuid = UUIDGen.generate(accessoryName);
 
