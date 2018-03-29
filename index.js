@@ -143,7 +143,13 @@ KegbotPlatform.prototype.devicePolling = function() {
           if(tap.meter_name in this.accessories)
           {
             this.accessories[tap.meter_name].getService(Service.HumiditySensor).
-              getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(Math.floor(Math.random() * 100) + 1);
+              getCharacteristic(Characteristic.Name).updateValue(tap.name);
+            var level = Math.floor(Math.random() * 100) + 1;
+            this.accessories[tap.meter_name].getService(Service.HumiditySensor).
+              getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(level);
+            this.accessories[tap.meter_name].getService(Service.HumiditySensor).
+              getCharacteristic(Characteristic.StatusLowBattery).updateValue(level < 20 ? Characteristic.StatusLowBattery.BATTERY_LEVEL_LOW 
+                                                                                        : Characteristic.StatusLowBattery.BATTERY_LEVEL_NORMAL);
           }
           else
           {
@@ -177,7 +183,7 @@ KegbotPlatform.prototype.addTapAccessory = function(tap) {
     accessory.context.name = accessoryName;
     accessory.context.displayName = displayName;
 
-    accessory.addService(Service.HumiditySensor);
+    accessory.addService(Service.HumiditySensor, displayName);
         
     accessory.getService(Service.AccessoryInformation)
       .setCharacteristic(Characteristic.Manufacturer, "Kegbot")
