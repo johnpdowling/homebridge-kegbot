@@ -76,7 +76,7 @@ KegbotPlatform.prototype.configureAccessory = function(accessory) {
     
   }
   
-  if (accessory.getService(Service.Faucet) || accessory.getService(Service.Valve)) {
+  if (accessory.getService(Service.TemperatureSensor).getCharacteristic(Characteristic.WaterLevel)){
     this.api.unregisterPlatformAccessories("homebridge-kegbot", "Kegbot", [accessory]);
     return;
   }
@@ -142,8 +142,8 @@ KegbotPlatform.prototype.devicePolling = function() {
         {
           if(tap.meter_name in this.accessories)
           {
-            this.accessories[tap.meter_name].getService(Service.TemperatureSensor).
-              getCharacteristic(Characteristic.WaterLevel).updateValue(Math.floor(Math.random() * 100) + 1);
+            this.accessories[tap.meter_name].getService(Service.HumiditySensor).
+              getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(Math.floor(Math.random() * 100) + 1);
           }
           else
           {
@@ -177,15 +177,8 @@ KegbotPlatform.prototype.addTapAccessory = function(tap) {
     accessory.context.name = accessoryName;
     accessory.context.displayName = displayName;
 
-    accessory.addService(Service.TemperatureSensor);
-    
-    accessory
-        .getService(Service.TemperatureSensor)
-        .addCharacteristic(Characteristic.WaterLevel);
-      accessory
-        .getService(Service.TemperatureSensor)
-        .addCharacteristic(Characteristic.LeakDetected);
-    
+    accessory.addService(Service.HumiditySensor);
+        
     accessory.getService(Service.AccessoryInformation)
       .setCharacteristic(Characteristic.Manufacturer, "Kegbot")
       .setCharacteristic(Characteristic.Model, "Kegbot Tap")
