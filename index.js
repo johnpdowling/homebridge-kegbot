@@ -141,8 +141,8 @@ KegbotPlatform.prototype.devicePolling = function() {
         {
           if(tap.meter_name in this.accessories)
           {
-            //this.accessories[thermo.sensor_name].getService(Service.TemperatureSensor).
-            //  getCharacteristic(Characteristic.CurrentTemperature).updateValue(thermo.last_log.temperature_c);
+            this.accessories[tap.meter_name].getService(Service.Faucet).
+              getCharacteristic(Characteristic.Active).updateValue(1);
           }
           else
           {
