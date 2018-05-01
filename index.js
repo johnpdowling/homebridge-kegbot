@@ -146,7 +146,7 @@ KegbotPlatform.prototype.devicePolling = function() {
           }
           else
           {
-            this.addTapAccessory(tap);
+            //this.addTapAccessory(tap);
           }
         });
           
